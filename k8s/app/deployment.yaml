@@ -1,4 +1,4 @@
-apiVersion: extensions/v1beta1
+apiVersion: extensions/v1
 kind: Deployment
 metadata:
   name: app
@@ -20,6 +20,7 @@ spec:
         ports:
         - containerPort: 80
 
+        # Especifica variáveis de ambiente
         env:
         - name: DB_PASSWORD
           valueFrom:
