@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: app
-        image: img-app-deployment
+        image: fabjordan/laravel-kubernetes:latest
         command: ["/bin/sh", "-c", "ln -s /var/www /usr/share/nginx; php-fpm;"]
         ports:
         - containerPort: 80
