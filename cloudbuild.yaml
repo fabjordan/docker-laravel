@@ -4,14 +4,13 @@ steps:
   name: 'gcr.io/$PROJECT_ID/docker-compose:1.24.0'
   args: ['-f','docker-compose.cloudbuild.yaml','up','-d']
 
-
-# - id: "Rodando docker ps"
-#   name: 'gcr.io/cloud-builders/docker'
-#   args: ['ps']
+- id: "Rodando docker ps"
+  name: 'gcr.io/cloud-builders/docker'
+  args: ['ps']
 
 - id: "Rodando Composer"
   name: 'gcr.io/cloud-builders/docker'
-  args: ['exec','-t','laravel-app','--network','cloudbuild','composer','install']
+  args: ['exec','-t','laravel-app','composer','install']
 
 - id: "Copiando .env"
   name: 'gcr.io/cloud-builders/docker'
