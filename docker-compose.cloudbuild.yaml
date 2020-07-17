@@ -1,13 +1,13 @@
-version: '3'
+version: "3"
 
 services:
 
     laravel-app:
         build: .
         container_name: laravel-app
-        # entrypoint: dockerize -template ./.docker/app/.env:.env -wait tcp://db:3306 -timeout 40s ./.docker/entrypoint.sh
+        # entrypoint: dockerize -wait tcp://laravel-db:3306 -timeout 40s ./.docker/entrypoint.sh
         # environment:
-        #     - DB_HOST=db
+        #     - DB_HOST=laravel-db
         #     - DB_DATABASE=laravel
         #     - DB_USERNAME=root
         #     - DB_PASSWORD=root
@@ -22,6 +22,10 @@ services:
     nginx:
         build: .docker/nginx
         container_name: nginx
+        entrypoint: ./.docker/nginx/entrypoint.sh
+        environment:
+            - NGINX_HOST=laravel-app
+            - NGINX_PORT=9000
         restart: always
         tty: true
         ports:
@@ -34,13 +38,13 @@ services:
             - laravel-app
 
     laravel-db:
-        image: mysql:5.7
+        build: .docker/mysql
         command: --innodb-use-native-aio=0
         container_name: laravel-db
         restart: always
         tty: true
         ports:
-            - "33006:3306"
+            - "3306:3306"
         volumes:
             - ./.docker/dbdata:/var/lib/mysql
         environment:
@@ -52,7 +56,7 @@ services:
 
     laravel-redis:
         image: redis:alpine
-        container_name: laravel_redis
+        container_name: laravel-redis
         expose:
             - 6379
         networks:
