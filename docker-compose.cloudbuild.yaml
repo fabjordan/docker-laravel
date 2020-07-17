@@ -2,9 +2,9 @@ version: "3"
 
 services:
 
-    app:
+    laravel-app:
         build: .
-        container_name: app
+        container_name: laravel-app
         # entrypoint: dockerize -wait tcp://laravel-db:3306 -timeout 40s ./.docker/entrypoint.sh
         # environment:
         #     - DB_HOST=laravel-db
@@ -24,7 +24,7 @@ services:
         container_name: nginx
         entrypoint: ./.docker/nginx/entrypoint.sh
         environment:
-            - NGINX_HOST=app
+            - NGINX_HOST=laravel-app
             - NGINX_PORT=9000
         restart: always
         tty: true
@@ -35,7 +35,7 @@ services:
         networks:
             - app-network
         depends_on:
-            - app
+            - laravel-app
 
     laravel-db:
         build: .docker/mysql
