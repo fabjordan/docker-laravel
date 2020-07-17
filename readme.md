@@ -1,3 +1,10 @@
+<p>Link da imagem docker do GOLANG: https://hub.docker.com/repository/docker/fabjordan/codeeducation</p>
+<p>Para executar:</p>
+
+```bash
+docker run fabjordan/codeeducation
+```
+
 <p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
 
 <p align="center">
